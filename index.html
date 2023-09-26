@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Datos de Sensores</title>
+</head>
+<body>
+    <h1>Datos de Sensores</h1>
+    <p>Humedad: <span id="humedad">Esperando datos...</span></p>
+    <p>Nivel: <span id="nivel">Esperando datos...</span></p>
+
+    <script>
+        function actualizarDatos(datos) {
+            document.getElementById("humedad").textContent = datos.humedad;
+            document.getElementById("nivel").textContent = datos.nivel;
+        }
+
+        function recibirDatos() {
+            fetch('/datos')
+                .then(response => response.json())
+                .then(data => {
+                    actualizarDatos(data);
+                });
+        }
+
+        setInterval(recibirDatos, 2000);  // Actualizar los datos cada 5 segundos
+    </script>
+</body>
+</html>
